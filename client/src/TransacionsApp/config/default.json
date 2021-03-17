@@ -1,0 +1,3 @@
+{
+    "MongoURI": "mongodb://localhost:27017/Financeguard?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+  }
