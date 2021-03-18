@@ -1,13 +1,18 @@
 const Transaction = require('../models/Transaction');
 const User = require('../models/User');
+const { user } =  require('../routes/api/users')
 const mongoose = require('mongoose');
+const express = require("express");
+
+
 
 // @desc    Get all transactions
 // @route   GET /api/transaction
 // @access  Public
 exports.getTransactions = async (req, res, next) => {
   try { 
-    const transactions = await Transaction.find();
+    const transactions = await Transaction.find(); 
+    // { user: req.user.id }
 
     return res.status(200).json({
       success: true,
@@ -25,12 +30,22 @@ exports.getTransactions = async (req, res, next) => {
 // @desc    Add transaction
 // @route   POST /api/transactions
 // @access  Public
+
 exports.addTransaction = async (req, res, next) => {
   try {
     const { text, amount } = req.body;
 
     const transaction = await Transaction.create(req.body);
-  
+
+    //try to referece to user, dont create nothing.
+    // transaction.user = req.user;
+
+    // transaction = new Transaction({
+    //   user,
+    //   text,
+    //   amount
+    // });
+
     return res.status(201).json({
       success: true,
       data: transaction
@@ -52,17 +67,6 @@ exports.addTransaction = async (req, res, next) => {
     }
   }
 }
-
-  //   // Build Profile Object
-  //   const transactionFields = {};
-  //   transactionFields.user = req.user.id;
-  //   if (text) transactionFields.text = text;
-  //   if (amount) transactionFields.amount = amount;
-
-
-
-    
-   
 
 // @desc    Delete transaction
 // @route   DELETE /api/v1/transactions/:id
