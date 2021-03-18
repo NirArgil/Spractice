@@ -37,7 +37,7 @@ exports.addTransaction = async (req, res, next) => {
 
     const transaction = await Transaction.create(req.body);
 
-    //try to referece to user, dont create nothing.
+    //try to referece to user but it doesnt create nothing.
     // transaction.user = req.user;
 
     // transaction = new Transaction({
